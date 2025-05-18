@@ -1,7 +1,8 @@
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
 
 public class User{
     private ArrayList<Expense> expenses;
@@ -31,5 +32,23 @@ public class User{
         }catch (IOException e){
             System.out.println("the file was not created");
         } 
+    }
+    public void loadExpenses(){
+        try(BufferedReader br = new BufferedReader(new FileReader("expenses.csv"))){;
+        
+        String newLine;
+        while ((newLine = br.readLine())!=null){
+            String[] parts = newLine.split(",");
+            Double amount = Double.parseDouble(parts[0]);
+            String category = parts[1];
+            String date = parts[2];
+            String notes = parts[3];
+
+            Expense e = new Expense(amount, category, date, notes);
+            expenses.add(e);
+        }
+    }catch (IOException e){
+        System.out.println("Data not loaded properly");
+    }
     }
 }
