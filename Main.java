@@ -5,12 +5,14 @@ public class Main{
         Scanner scanner = new Scanner(System.in);
         User user = new User();
 
+        user.loadExpenses();
         Boolean running = true;
         while(running){
             System.out.println("\n--- Expense Tracker ---");
             System.out.println("1.AddExpense");
             System.out.println("2.View Expense");
-            System.out.println("3.Exit");
+            System.out.println("3.Set Monthly Budget.");
+            System.out.println("4.Exit");
             System.out.print("Enter choice: ");
 
             int choice = scanner.nextInt();
@@ -33,7 +35,7 @@ public class Main{
 
                     Expense expense = new Expense(amount, category, date, note);
                     user.addExpense(expense);
-                    user.saveExpensesToFile(expense);
+                    User.saveExpensesToFile(expense);
                     break;
 
                 case 2:
@@ -41,6 +43,9 @@ public class Main{
                     break;
 
                 case 3:
+                    user.setMonthlyBudget(scanner);
+                    break;
+                case 4:
                     running = false;
                     System.out.println("Goodbye!");
                     break;

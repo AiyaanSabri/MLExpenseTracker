@@ -1,11 +1,13 @@
-import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.*;
 
 public class User{
     private ArrayList<Expense> expenses;
+    private Double monthlyBudget;
+    private String budgetMonth;
     
     public User(){
         expenses= new ArrayList<Expense>();
@@ -51,4 +53,28 @@ public class User{
         System.out.println("Data not loaded properly");
     }
     }
+    
+    public void setMonthlyBudget(Scanner scanner){
+        
+        System.out.println("please enter the month for your budget(YYYY-MM): ");
+        String inputString = scanner.nextLine();
+        System.out.println("Please enter your monthly budget: ");
+        double amount = scanner.nextDouble();
+        scanner.nextLine();
+        if(monthlyBudget != null && inputString.equals(budgetMonth)){
+            System.out.println("A budget is already set for " + budgetMonth + ": $" + monthlyBudget);
+            System.out.print("Do you want to update it? (yes/no): ");
+            String response = scanner.nextLine();
+
+            if(!response.equalsIgnoreCase("yes")){
+                System.out.println("Keeping the existing budget.");
+                
+            }
+        }
+        monthlyBudget = amount;
+        budgetMonth = inputString;
+        System.out.println("Budget set: $" + monthlyBudget + " for " + budgetMonth);
+        return;
+    
+}
 }
